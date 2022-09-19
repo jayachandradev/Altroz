@@ -29,13 +29,17 @@ Click on the "1 published" for the report:
 The full report can be downloaded there:
 ![image](https://user-images.githubusercontent.com/5158535/140100743-99de1f84-cb55-42f0-aee5-5b5e037fd9c4.png)
 
+
+** For the Appscan source script to run properly we need cli.token, make sure you have your cli.token in your local**
+** In your local while running AppScanSrcCli Use "login server user_id password [-persist] [-acceptssl]" which will generate a CLI Token for login **
 ## Additional Notes
 The following 4 files in the repo are required:
 
 * __azure-pipelines.yml__ <--- This is the pipeline configuration, notice in line 18, we call appscansrccli to run "cli_script.txt". Also notice line 9: (pool: 'Default') is the agent pool where my self-hosted 2016 windows server machine is located. 
-* __cli_script.txt__ <--- Runs AppScan Source CLI, will point to the .paf and ppf files to initialize the application 
+* __cli_script.txt__ <--- Runs AppScan Source CLI, will point to the .paf and ppf files to initialize the application. In this file make sure you edit login command "login **ASE Server ** -acceptssl" accordingly. 
 * __AltoroJ_3.2.paf__ <---- Need to be pre-generated in AppScan Source for Analysis (think of this as putting in the appscan-config.xml in the context of ASoC)
 * __AltoroJ_3.2.ppf__ <---- Need to be pre-generated in AppScan Source for Analysis (think of this as putting in the appscan-config.xml in the context of ASoC)
+
 
 Finally, here are the instructions on how to setup a windows self-hosted agent:
 https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-windows?view=azure-devops
