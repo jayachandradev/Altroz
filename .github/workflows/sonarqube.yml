@@ -38,5 +38,6 @@ jobs:
         with:
           args: 
             -Dsonar.projectKey=jayachandradev_Altroz
+            -Dsonar.organization=jayachandradev
             -Dsonar.sources=src
             -Dsonar.java.binaries=build/classes/java/main
