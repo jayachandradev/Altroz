@@ -26,4 +26,5 @@ jobs:
             -v "$(pwd)":/usr/src \
             sonarsource/sonar-scanner-cli:10 \
             -Dsonar.projectKey=jayachandradev_Altroz \
+            -Dsonar.organization=jayachandradev
             -Dsonar.verbose=true
