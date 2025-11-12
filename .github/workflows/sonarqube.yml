@@ -37,9 +37,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     # Add this in repo secrets
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} # Add your SonarQube instance URL
         with:
-          args: >
+          args: 
             -Dsonar.projectKey=jayachandradev_Altroz
-            -Dsonar.verbose=true
             # Optional custom paths (uncomment if needed)
             # -Dsonar.sources=src
             # -Dsonar.tests=tests
