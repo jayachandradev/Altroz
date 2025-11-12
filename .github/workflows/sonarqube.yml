@@ -1,4 +1,4 @@
-name: SonarQube analysis
+name: SonarQube Analysis
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
-
 
 permissions:
   pull-requests: read
@@ -17,15 +16,26 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Run SonarQube Scanner (Java 17 compatible)
-        run: |
-          docker run --rm \
-            -e SONAR_HOST_URL="${{ secrets.SONAR_HOST_URL }}" \
-            -e SONAR_TOKEN="${{ secrets.SONAR_TOKEN }}" \
-            -v "$(pwd)":/usr/src \
-            sonarsource/sonar-scanner-cli:10 \
-            -Dsonar.projectKey=jayachandradev_Altroz \
-            -Dsonar.organization=jayachandradev
-            -Dsonar.verbose=true
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Analyze with SonarQube
+        uses: SonarSource/sonarqube-scan-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: 
+            -Dsonar.projectKey=jayachandradev_Altroz
+            -Dsonar.sources=src/main/java
+            -Dsonar.tests=src/test/java
+            -Dsonar.java.binaries=target/classes
